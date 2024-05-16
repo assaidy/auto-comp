@@ -9,7 +9,7 @@ def clean_word(word: str, remove_digits: bool = False) -> str:
     return word.strip(to_remove).lower()
 
 
-async def read_entire_file_words(file_path: str) -> dict[str, int]:
+def read_entire_file_words(file_path: str) -> dict[str, int]:
     """
     return all unique words in a file with its frequency count
     """

@@ -8,8 +8,7 @@ class Trie:
     def __init__(self) -> None:
         self.root = TrieNode()
 
-    # NOTE: runs in async 
-    async def fill(self, words: list[str]) -> None:
+    def fill(self, words: list[str]) -> None:
         for word in words:
             self.insert(word)
 

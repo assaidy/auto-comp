@@ -1,21 +1,31 @@
-#!/usr/bin/env pypy3
-
-import asyncio
+#!/usr/bin/env python3
 
 from trie import Trie
 from word_extractor import read_entire_file_words
 
-async def main() -> None:
+
+def main() -> None:
     PATH = "./t8.shakespeare.txt"
-    words_with_count = await read_entire_file_words(PATH)
 
     trie = Trie()
-    await trie.fill(list(words_with_count.keys()))
 
-    key = input("find somthing: ").strip().lower()
-    for word in trie.complete(key):
-        print(">", word)
+    print("[INFO] processing words...", end="", flush=True)
+    words_with_count = read_entire_file_words(PATH)
+    trie.fill(list(words_with_count.keys()))
+
+    try:
+        while True:
+            key = input("\nfind somthing: ").strip().lower()
+            print("-" * 20)
+            completion_list = trie.complete(key)
+            if not completion_list:
+                print("[INFO] no results found.")
+                continue
+            for word in completion_list:
+                print(">", word)
+    except KeyboardInterrupt:
+        exit(1)
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
